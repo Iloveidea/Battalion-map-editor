@@ -29,6 +29,7 @@ func _ready():
 	basetile.add_item("rock_formation",12)
 	basetile.add_item("desert",13)
 	basetile.add_item("archipelago",14)
+	basetile.add_item("road",15)
 	basetile.add_item("Bridge(horizontal)",16)
 	basetile.add_item("Bridge(vertical)",17)
 	basetile.add_item("High Bridge(horizontal)",18)
@@ -47,9 +48,9 @@ func _ready():
 #	connect("id_pressed", self, "file_menu")
 
 func _on_tilebtn(id):
-	get_node("..").mode = "t"
-	get_node("..").settilenum(id)
-	get_node("..").set_texture()
+	get_node('../..').mode = "t"
+	get_node('../..').settilenum(id)
+	get_node('../..').set_texture()
 #	match id:
 #		0:
 #			get_node("..").settilenum(id)

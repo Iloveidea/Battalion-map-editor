@@ -19,7 +19,7 @@ func _unhandled_input(event):
 			if event.is_pressed():
 				var x = world_to_map(event.position + get_node("..").get_camera()).x
 				var y = world_to_map(event.position + get_node("..").get_camera()).y
-				if x > -1 && x < 10 && y > -1 && y < 15:
+				if x >  -2 && x < get_node("..").get_mapX() + 1 && y > -2 && y < get_node("..").get_mapY() + 1:
 					if get_node("..").mode == "t":
 						get_node("..").settile(x,y)
 					if get_node("..").mode == "b":

@@ -10,6 +10,8 @@ var unitnum = int(0)
 var buildnum = int(0)
 var mode = "t"
 var atl = AtlasTexture.new()
+var mapX = 10
+var mapY = 15
 
 func get_camera()->Vector2:
 	return $camera.position
@@ -17,10 +19,22 @@ func get_camera()->Vector2:
 func set_camera(vec):
 	$camera.position = vec
 
+func get_mapX()->int:
+	return mapX
+
+func get_mapY()->int:
+	return mapY
+
+func set_mapX(x):
+	mapX = x
+
+func set_mapY(y):
+	mapY = y
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_texture()
-	set_line(10,15)
+	set_line(mapX,mapY)
 	pass # Replace with function body.
 
 func set_texture():
@@ -52,7 +66,7 @@ func set_texture():
 		elif unitnum < 1299:
 			atl.set_atlas($runit.get_tileset().tile_get_texture(unitnum - 1200))
 			atl.set_region($runit.get_tileset().tile_get_region(unitnum - 1200))
-	$TextureRect3.set_texture(atl)
+	$camera/TextureRect3.set_texture(atl)
 	pass
 
 func set_line(x,y):
@@ -62,6 +76,13 @@ func set_line(x,y):
 	$line.add_point(Vector2(56*x,56*y),2)
 	$line.add_point(Vector2(56*x,0),3)
 	$line.add_point(Vector2(0,0),4)
+	
+	$line2.clear_points()
+	$line2.add_point(Vector2(-56,-56),0)
+	$line2.add_point(Vector2(-56,56*y+56),1)
+	$line2.add_point(Vector2(56*x+56,56*y+56),2)
+	$line2.add_point(Vector2(56*x+56,-56),3)
+	$line2.add_point(Vector2(-56,-56),4)
 	pass
 
 func gettiletex(t) ->Texture:

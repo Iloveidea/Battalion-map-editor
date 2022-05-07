@@ -5,12 +5,11 @@ extends Button
 # var a = 2
 
 var mapxml = "text"
-var mapx = 0
-var mapy = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	mapxml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<map>\n  <description/>\n  <name>Unnamed Map</name>\n  <author>Unknown Author</author>\n  <mode>Battalion Map Editor</mode>\n  <rows>15</rows>\n  <cols>10</cols>\n  <layers>3</layers>\n  <palette>\n"
+	print("asd")
+	mapxml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<map>\n  <description/>\n  <name>Unnamed Map</name>\n  <author>Unknown Author</author>\n  <mode>Battalion Map Editor</mode>\n  <rows>" + str(get_node('../..').get_mapY()) + "</rows>\n  <cols>" + str(get_node('../..').get_mapX()) + "</cols>\n  <layers>3</layers>\n  <palette>\n"
 	mapxml = mapxml + "    <entry reference=\"0\">\n      <name>Plains</name>\n      <imageCode>?(plains_v1.png;plains_v2.png;plains_v3.png;plains_v4.png;plains_v5.png;plains_v6.png;plains_v7.png;plains_v8.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1\">\n      <name>Forest</name>\n      <imageCode>?(forest_v1.png;forest_v2.png;forest_v3.png;forest_v4.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"2\">\n      <name>Mountain</name>\n      <imageCode>?(mountains_v1.png;mountains_v2.png;mountains_v3.png;mountains_v4.png)</imageCode>\n    </entry>\n"
@@ -462,24 +461,28 @@ func outprint():
 	print("adddaddss")
 
 func gettilenum(y,x) ->int:
-	return get_node('..').gettile(y,x)
+	if get_node('../..').gettile(y,x) == -1:
+		return 0
+	return get_node('../..').gettile(y,x)
 
 func gettilemsg(y,x) -> String:
 	var tilemsg = ""
 	tilemsg = tilemsg + "  <tile c=\"" + str(y) + "\" r=\"" + str(x) + "\">\n"
-	if get_node('..').gettile(y,x) != -1:
-		tilemsg = tilemsg + "    <layer reference=\"" + str(gettilenum(y,x)) + "\" depth=\"0\"/>\n"
-	if get_node('..').get_build(y,x) != -1 or get_node('..').get_build(y,x) == 65535:
-		tilemsg = tilemsg + "    <layer reference=\"" + str(get_node('..').get_build(y,x)) + "\" depth=\"1\"/>\n"
-	if get_node('..').getmapunit(y,x) != -1:
-		tilemsg = tilemsg + "    <layer reference=\"" + str(get_node('..').getmapunit(y,x)) + "\" depth=\"2\"/>\n"
+	#if get_node('../..').gettile(y,x) != -1:
+	tilemsg = tilemsg + "    <layer reference=\"" + str(gettilenum(y,x)) + "\" depth=\"0\"/>\n"
+	if get_node('../..').get_build(y,x) != -1 or get_node('../..').get_build(y,x) == 65535:
+		tilemsg = tilemsg + "    <layer reference=\"" + str(get_node('../..').get_build(y,x)) + "\" depth=\"1\"/>\n"
+	if get_node('../..').getmapunit(y,x) != -1:
+		tilemsg = tilemsg + "    <layer reference=\"" + str(get_node('../..').getmapunit(y,x)) + "\" depth=\"2\"/>\n"
 	tilemsg = tilemsg + "  </tile>\n"
 	return tilemsg
 
 func _on_output_pressed():
 	_ready()
-	for mapy in range(10):
-		for mapx in range(15):
+# warning-ignore:shadowed_variable
+	for mapy in range(get_node('../..').get_mapY()):
+# warning-ignore:shadowed_variable
+		for mapx in range(get_node('../..').get_mapX()):
 			#print(get_node('..').gettile(mapy,mapx))
 			mapxml = mapxml + gettilemsg(mapy,mapx)
 			

@@ -80,9 +80,9 @@ func _ready():
 #	connect("id_pressed", self, "file_menu")
 
 func _on_unitbtn(id):
-	get_node("..").mode = "u"
-	get_node("..").setunitnum(id)
-	get_node("..").set_texture()
+	get_node('../..').mode = "u"
+	get_node('../..').setunitnum(id)
+	get_node('../..').set_texture()
 #	match id:
 #		0:
 #			get_node("..").settilenum(id)

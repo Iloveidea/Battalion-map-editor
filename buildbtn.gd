@@ -64,9 +64,9 @@ func _ready():
 #	connect("id_pressed", self, "file_menu")
 
 func _on_tilebtn(id):
-	get_node("..").mode = "b"
-	get_node("..").set_buildnum(id)
-	get_node("..").set_texture()
+	get_node('../..').mode = "b"
+	get_node('../..').set_buildnum(id)
+	get_node('../..').set_texture()
 #	match id:
 #		0:
 #			get_node("..").settilenum(id)
