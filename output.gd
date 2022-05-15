@@ -5,10 +5,10 @@ extends Button
 # var a = 2
 
 var mapxml = "text"
+var mapscript = "text"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("asd")
 	mapxml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<map>\n  <description/>\n  <name>Unnamed Map</name>\n  <author>Unknown Author</author>\n  <mode>Battalion Map Editor</mode>\n  <rows>" + str(get_node('../..').get_mapY()) + "</rows>\n  <cols>" + str(get_node('../..').get_mapX()) + "</cols>\n  <layers>3</layers>\n  <palette>\n"
 	mapxml = mapxml + "    <entry reference=\"0\">\n      <name>Plains</name>\n      <imageCode>?(plains_v1.png;plains_v2.png;plains_v3.png;plains_v4.png;plains_v5.png;plains_v6.png;plains_v7.png;plains_v8.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1\">\n      <name>Forest</name>\n      <imageCode>?(forest_v1.png;forest_v2.png;forest_v3.png;forest_v4.png)</imageCode>\n    </entry>\n"
@@ -45,9 +45,11 @@ func _ready():
 	mapxml = mapxml + "    <entry reference=\"1115\">\n      <name>P1 Hunter</name>\n      <imageCode>@(1;hunter.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1116\">\n      <name>P1 Battlecruiser</name>\n      <imageCode>@(1;battlecruiser.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1117\">\n      <name>P1 U-Boat</name>\n      <imageCode>@(1;uboat.png)</imageCode>\n    </entry>\n"
+	mapxml = mapxml + "    <entry reference=\"1118\">\n      <name>P1 Leviathan Barge</name>\n      <imageCode>@(1;leviathan.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1119\">\n      <name>P1 Raptor Fighter</name>\n      <imageCode>@(1;raptorfighter.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1120\">\n      <name>P1 Vulture Drone</name>\n      <imageCode>@(1;vulture.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1121\">\n      <name>P1 Condor Bomber</name>\n      <imageCode>@(1;condorbomber.png)</imageCode>\n    </entry>\n"
+	mapxml = mapxml + "    <entry reference=\"1122\">\n      <name>P1 Albatross Transport</name>\n      <imageCode>@(1;albatross.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1123\">\n      <name>P1 Blockade</name>\n      <imageCode>@(1;blockade.png)</imageCode>\n    </entry>\n"
 	
 	
@@ -69,9 +71,11 @@ func _ready():
 	mapxml = mapxml + "    <entry reference=\"1215\">\n      <name>P2 Hunter</name>\n      <imageCode>@(2;hunter.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1216\">\n      <name>P2 Battlecruiser</name>\n      <imageCode>@(2;battlecruiser.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1217\">\n      <name>P2 U-Boat</name>\n      <imageCode>@(2;uboat.png)</imageCode>\n    </entry>\n"
+	mapxml = mapxml + "    <entry reference=\"1218\">\n      <name>P2 Leviathan Barge</name>\n      <imageCode>@(2;leviathan.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1219\">\n      <name>P2 Raptor Fighter</name>\n      <imageCode>@(2;raptorfighter.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1220\">\n      <name>P2 Vulture Drone</name>\n      <imageCode>@(2;vulture.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1221\">\n      <name>P2 Condor Bomber</name>\n      <imageCode>@(2;condorbomber.png)</imageCode>\n    </entry>\n"
+	mapxml = mapxml + "    <entry reference=\"1222\">\n      <name>P2 Albatross Transport</name>\n      <imageCode>@(2;albatross.png)</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"1223\">\n      <name>P2 Blockade</name>\n      <imageCode>@(2;blockade.png)</imageCode>\n    </entry>\n"
 	
 	
@@ -440,8 +444,8 @@ func _ready():
 	mapxml = mapxml + "    <entry reference=\"30146\">\n      <name>High Bridge</name>\n      <imageCode>high_bridge_8_v1.png</imageCode>\n    </entry>\n"
 	mapxml = mapxml + "    <entry reference=\"30018\">\n      <name>High Bridge</name>\n      <imageCode>high_bridge_6_v1.png</imageCode>\n    </entry>\n"
 	
-	
-	
+	mapscript = "  <script>\n"
+	mapscript = mapscript + "    <event>\n      <condition type=\"startGame\">\n        <satisfied value=\"true\"/>\n      </condition>\n"
 	
 	
 	
@@ -460,6 +464,15 @@ func _ready():
 func outprint():
 	print("adddaddss")
 
+func add_transporter(x,y,transportertype):
+	mapscript = mapscript + "      <response type=\"createTransportedUnit\">\n"
+	mapscript = mapscript + "        <x value=\"" + str(x) + "\"/>\n" + "        <y value=\"" + str(y) + "\"/>\n"
+	mapscript = mapscript + "        <player value=\"" + str(get_node('../..').getmapunit(x,y)/100 - 10) + "\"/>\n"
+	mapscript = mapscript + "        <transportType value=\"" + get_node('../..').get_unit(get_node('../..').getmapunit(x,y)) + "\"/>\n"
+	mapscript = mapscript + "        <transporterType value=\"" + transportertype + "\"/>\n"
+	mapscript = mapscript + "      </response>\n"
+	pass
+
 func gettilenum(y,x) ->int:
 	if get_node('../..').gettile(y,x) == -1:
 		return 0
@@ -473,7 +486,11 @@ func gettilemsg(y,x) -> String:
 	if get_node('../..').get_build(y,x) != -1 or get_node('../..').get_build(y,x) == 65535:
 		tilemsg = tilemsg + "    <layer reference=\"" + str(get_node('../..').get_build(y,x)) + "\" depth=\"1\"/>\n"
 	if get_node('../..').getmapunit(y,x) != -1:
-		tilemsg = tilemsg + "    <layer reference=\"" + str(get_node('../..').getmapunit(y,x)) + "\" depth=\"2\"/>\n"
+		if get_node('../..').get_transporter(y,x) == "-1" :
+			tilemsg = tilemsg + "    <layer reference=\"" + str(get_node('../..').getmapunit(y,x)) + "\" depth=\"2\"/>\n"
+		else :
+			add_transporter(y,x,get_node('../..').get_transporter(y,x))
+			pass
 	tilemsg = tilemsg + "  </tile>\n"
 	return tilemsg
 
@@ -484,9 +501,9 @@ func _on_output_pressed():
 # warning-ignore:shadowed_variable
 		for mapx in range(get_node('../..').get_mapX()):
 			#print(get_node('..').gettile(mapy,mapx))
-			mapxml = mapxml + gettilemsg(mapy,mapx)
+			mapxml = mapxml + gettilemsg(mapx,mapy)
 			
-	
-	mapxml = mapxml + "</map>"
+	mapscript = mapscript + "    </event>\n" + "  </script>\n"
+	mapxml = mapxml + mapscript + "</map>"
 	$text.set_text(mapxml)
 	pass # Replace with function body.

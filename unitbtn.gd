@@ -66,18 +66,29 @@ func _ready():
 	p2unit.add_item("Condor Bomber",1221)
 	p2unit.add_item("Blockade",1223)
 	
-	
-	
+	var transporter = PopupMenu.new()
+	transporter.name = "transporter"
+	transporter.add_item("del",65535)
+	transporter.add_item("Leviathan Barge",18)
+	transporter.add_item("Albatross Transport",22)
 	
 	unitmenu.add_child(p1unit)
 	unitmenu.add_submenu_item("p1unit","p1unit")
 	unitmenu.add_child(p2unit)
 	unitmenu.add_submenu_item("p2unit","p2unit")
+	unitmenu.add_child(transporter)
+	unitmenu.add_submenu_item("transporter","transporter")
 	
 	unitmenu.connect("id_pressed", self, "_on_unitbtn")
 	p1unit.connect("id_pressed", self, "_on_unitbtn")
 	p2unit.connect("id_pressed", self, "_on_unitbtn")
+	transporter.connect("id_pressed", self, "_transporter_on_unitbtn")
 #	connect("id_pressed", self, "file_menu")
+
+func _transporter_on_unitbtn(id):
+	get_node('../..').mode = "tran"
+	get_node('../..').set_transporternum(id)
+	get_node('../..').set_texture()
 
 func _on_unitbtn(id):
 	get_node('../..').mode = "u"

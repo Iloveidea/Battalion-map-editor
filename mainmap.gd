@@ -26,6 +26,8 @@ func _unhandled_input(event):
 						get_node("..").set_build(x,y)
 					if get_node("..").mode == "u":
 						get_node("..").setmapunit(x,y)
+					if get_node("..").mode == "tran":
+						get_node("..").set_transporter(x,y)
 		elif event.button_index == 2:
 			if event.is_pressed():
 				isDrag = true

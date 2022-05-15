@@ -12,6 +12,74 @@ var mode = "t"
 var atl = AtlasTexture.new()
 var mapX = 10
 var mapY = 15
+var transporternum  = int(0)
+
+func set_transporternum(i):
+	transporternum = i
+	if i == 65535 : transporternum = -1
+
+func get_transporternum() ->int:
+	return transporternum
+
+func set_transporter(x,y):
+	$transporter.set_cell(x,y,transporternum,false,false,0)
+	pass
+
+func get_transporter(x,y)->String:
+	if $transporter.get_cell(x,y) == -1 : return "-1" 
+	if $transporter.get_cell(x,y) == 0 : return "Strike Commando" 
+	if $transporter.get_cell(x,y) == 1 : return "Heavy Commando" 
+	if $transporter.get_cell(x,y) == 2 : return "Scorpion Tank" 
+	if $transporter.get_cell(x,y) == 3 : return "Lancer Tank" 
+	if $transporter.get_cell(x,y) == 4 : return "Flak Tank" 
+	if $transporter.get_cell(x,y) == 5 : return "Stealth Tank" 
+	if $transporter.get_cell(x,y) == 6 : return "Scorpion Tank" 
+	if $transporter.get_cell(x,y) == 7 : return "Annihilator Tank" 
+	if $transporter.get_cell(x,y) == 8 : return "Mortar Truck" 
+	if $transporter.get_cell(x,y) == 9 : return "Rocket Truck" 
+	if $transporter.get_cell(x,y) == 10 : return "Jammer Truck" 
+	if $transporter.get_cell(x,y) == 11 : return "Warmachine" 
+	if $transporter.get_cell(x,y) == 12 : return "Turret" 
+	if $transporter.get_cell(x,y) == 13 : return "Intrepid" 
+	if $transporter.get_cell(x,y) == 14 : return "Corvette" 
+	if $transporter.get_cell(x,y) == 15 : return "Hunter" 
+	if $transporter.get_cell(x,y) == 16 : return "Battlecruiser" 
+	if $transporter.get_cell(x,y) == 17 : return "U-Boat" 
+	if $transporter.get_cell(x,y) == 18 : return "Leviathan Barge" 
+	if $transporter.get_cell(x,y) == 19 : return "Raptor Fighter" 
+	if $transporter.get_cell(x,y) == 20 : return "Vulture Drone" 
+	if $transporter.get_cell(x,y) == 21 : return "Condor Bomber" 
+	if $transporter.get_cell(x,y) == 22 : return "Albatross Transport" 
+	if $transporter.get_cell(x,y) == 23 : return "Blockade" 
+	return "-1"
+
+func get_unit(i)->String:
+	if i%100 == 0 : return "Strike Commando" 
+	if i%100 == 1 : return "Heavy Commando" 
+	if i%100 == 2 : return "Scorpion Tank" 
+	if i%100 == 3 : return "Lancer Tank" 
+	if i%100 == 4 : return "Flak Tank" 
+	if i%100 == 5 : return "Stealth Tank" 
+	if i%100 == 6 : return "Scorpion Tank" 
+	if i%100 == 7 : return "Annihilator Tank" 
+	if i%100 == 8 : return "Mortar Truck" 
+	if i%100 == 9 : return "Rocket Truck" 
+	if i%100 == 10 : return "Jammer Truck" 
+	if i%100 == 11 : return "Warmachine" 
+	if i%100 == 12 : return "Turret" 
+	if i%100 == 13 : return "Intrepid" 
+	if i%100 == 14 : return "Corvette" 
+	if i%100 == 15 : return "Hunter" 
+	if i%100 == 16 : return "Battlecruiser" 
+	if i%100 == 17 : return "U-Boat" 
+	if i%100 == 18 : return "Leviathan Barge" 
+	if i%100 == 19 : return "Raptor Fighter" 
+	if i%100 == 20 : return "Vulture Drone" 
+	if i%100 == 21 : return "Condor Bomber" 
+	if i%100 == 22 : return "Albatross Transport" 
+	if i%100 == 23 : return "Blockade" 
+	return "-1"
+
 
 func get_camera()->Vector2:
 	return $camera.position
@@ -66,6 +134,8 @@ func set_texture():
 		elif unitnum < 1299:
 			atl.set_atlas($runit.get_tileset().tile_get_texture(unitnum - 1200))
 			atl.set_region($runit.get_tileset().tile_get_region(unitnum - 1200))
+	elif mode == "tran":
+		pass
 	$camera/TextureRect3.set_texture(atl)
 	pass
 
