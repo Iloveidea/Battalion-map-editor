@@ -10,8 +10,8 @@ var unitnum = int(0)
 var buildnum = int(0)
 var mode = "t"
 var atl = AtlasTexture.new()
-var mapX = 10
-var mapY = 15
+var mapX = 20
+var mapY = 19
 var transporternum  = int(0)
 
 func set_transporternum(i):
